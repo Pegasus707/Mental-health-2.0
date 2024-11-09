@@ -439,6 +439,38 @@
             appointmentSuccess.textContent = `Appointment for ${name} successfully booked on ${date} at ${time}. Reason: ${reason}.`;
         });
     });
+    
+     // Mood Tracker Form Submission Handling
+    const moodForm = document.getElementById("mood-form");
+    const moodLogList = document.getElementById("mood-log-list");
+
+    moodForm.addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent the default form submission (which causes page reload)
+
+        // Get values from the mood tracking form
+        const mood = document.getElementById("question1").value;
+        const stress = document.getElementById("question2").value;
+        const sleep = document.getElementById("question3").value;
+
+        // Create a new list item with the mood information
+        const listItem = document.createElement("li");
+        listItem.innerHTML = `
+            <strong>Mood:</strong> ${mood}, <strong>Stress:</strong> ${stress}, <strong>Sleep:</strong> ${sleep}
+            <button onclick="deleteMoodLog(event)">Delete</button>
+        `;
+
+        // Append the new entry to the mood log
+        moodLogList.appendChild(listItem);
+        
+        // Clear the form after submission
+        moodForm.reset();
+    });
+
+    // Function to delete a mood log entry
+    window.deleteMoodLog = function (event) {
+        const listItem = event.target.closest("li");
+        moodLogList.removeChild(listItem);
+    };
 </script>
 </body>
 </html>
